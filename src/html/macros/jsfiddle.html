@@ -1,0 +1,12 @@
+{% macro fiddle(id, height='300', html=true, css=false, js=false) %}
+  {% set params = { html: html, css: css, js: js, result: true } %}
+  {% set comma = joiner(',') %}
+  <iframe
+    width="70%"
+    height="{{ height }}"
+    src="//jsfiddle.net/kasperisager/{{ id }}/embedded/{% for param, include in params %}{{ comma() + param if include }}{% endfor %}/"
+    allowfullscreen="allowfullscreen"
+    frameborder="0"
+    >
+  </iframe>
+{% endmacro %}

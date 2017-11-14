@@ -1,0 +1,68 @@
+{% set config = {
+  cdn: "https://cdnjs.cloudflare.com/ajax/libs",
+  libs: {
+    reveal: "reveal.js/3.5.0",
+    highlight: "highlight.js/9.12.0"
+  },
+  slides: [
+    "01-intro",
+    "02-what",
+    "03-semantics"
+  ]
+} %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{ config.cdn }}/{{ config.libs.reveal }}/css/reveal.min.css">
+    <link rel="stylesheet" href="{{ config.cdn }}/{{ config.libs.reveal }}/css/theme/white.min.css">
+    <link rel="stylesheet" href="{{ config.cdn }}/{{ config.libs.highlight }}/styles/atom-one-light.min.css">
+    <style>
+      .reveal pre {
+        display: inline-block;
+        width: auto;
+        box-shadow: none;
+      }
+
+      .reveal pre code {
+        background: none;
+      }
+
+      .reveal section img {
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+    </style>
+    <title>Coding for Accessibility</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        {% for slide in config.slides %}
+          <section>
+            {% include "slides/" + slide + ".html" %}
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="{{ config.cdn }}/{{ config.libs.reveal }}/lib/js/head.min.js"></script>
+    <script src="{{ config.cdn }}/{{ config.libs.reveal }}/js/reveal.min.js"></script>
+    <script>
+      Reveal.initialize({
+        history: true,
+        transitionSpeed: 'fast',
+        dependencies: [
+          {
+            src: '{{ config.cdn }}/{{ config.libs.reveal }}/plugin/highlight/highlight.min.js',
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
