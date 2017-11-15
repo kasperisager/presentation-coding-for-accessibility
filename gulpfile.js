@@ -4,6 +4,7 @@ const {compile} = require('gulp-nunjucks');
 const htmlmin = require('gulp-htmlmin');
 const webserver = require('gulp-webserver');
 const livereload = require('gulp-livereload');
+const deploy = require('gulp-gh-pages');
 
 const {src, dest} = gulp;
 
@@ -37,3 +38,7 @@ gulp.task('serve', ['watch'], () => src('dist')
     livereload: true
   }))
 );
+
+gulp.task('deploy', ['build'], () => src('dist/**/*')
+  .pipe(deploy())
+)
